@@ -42,3 +42,11 @@ pub trait ReplicaTopology {
     type ID;
     async fn topology(id: &Self::ID, output: &utils::OutputFormat);
 }
+
+/// Replica topology trait.
+/// To be implemented by resources which support the 'replica-topology' operation
+#[async_trait(?Send)]
+pub trait GetBlockDevices {
+    type ID;
+    async fn get_blockdevices(id: &Self::ID, all: &bool, output: &utils::OutputFormat);
+}
