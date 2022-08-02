@@ -1594,7 +1594,7 @@ dependencies = [
 
 [[package]]
 name = "h2"
-version = "0.3.13"
+version = "0.3.11"
 dependencies = [
  "bytes",
  "fnv",
@@ -1605,7 +1605,7 @@ dependencies = [
  "indexmap",
  "slab",
  "tokio",
- "tokio-util 0.7.3",
+ "tokio-util 0.6.10",
  "tracing",
 ]
 

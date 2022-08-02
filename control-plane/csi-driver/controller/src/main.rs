@@ -7,10 +7,11 @@ mod client;
 mod config;
 mod controller;
 mod identity;
+mod pvwatcher;
+mod server;
+
 use client::{ApiClientError, CreateVolumeTopology, IoEngineApiClient};
 use config::CsiControllerConfig;
-
-mod server;
 
 const CSI_SOCKET: &str = "/var/tmp/csi.sock";
 
@@ -94,6 +95,9 @@ async fn main() -> anyhow::Result<()> {
         "Starting IoEngine CSI Controller, REST endpoint = {}",
         CsiControllerConfig::get_config().rest_endpoint()
     );
+
+    //Starts PV Garbage collector in a separate thread.
+    tokio::spawn(async { pvwatcher::PvGarbageCollector::start_watcher().await });
 
     let result = server::CsiServer::run(
         args.value_of("socket")
